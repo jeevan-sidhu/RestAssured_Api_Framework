@@ -1,7 +1,5 @@
 package com.qa.api.tests;
 
-import java.io.File;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,10 +11,11 @@ import com.qa.api.utils.StringUtils;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class CreateUserTest extends BaseTest {
+public class DeleteUserTest extends BaseTest {
 	
 	@Test
-	public void createUserTest() {
+	public void deleteUserTest() {
+		
 		//POST- Creating new user
 		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
 		Response response = restClient.post("/public/v2/users", user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
@@ -31,21 +30,16 @@ public class CreateUserTest extends BaseTest {
 		Assert.assertEquals(responseGet.jsonPath().getString("email"), user.getEmail());
 		Assert.assertEquals(responseGet.jsonPath().getString("gender"), user.getGender());
 		Assert.assertEquals(responseGet.jsonPath().getString("status"), user.getStatus());
-	}
-	
-	@Test
-	public void createUserUsingJsonFileTest() {
 		
-		//POST- Creating new user
-		File user = new File("./src/test/resources/jsons/user.json");
-		Response response = restClient.post("/public/v2/users", user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
-		Assert.assertEquals(response.statusCode(), 201);
-		String userId = response.jsonPath().getString("id");
+		//DELETE- Deleting the user
+		Response responseDelete = restClient.delete("/public/v2/users/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Assert.assertEquals(responseDelete.statusCode(), 204);
 		
-		//GET- Fetching the user
-		Response responseGet = restClient.get("/public/v2/users/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
-		Assert.assertEquals(responseGet.statusCode(), 200);
-		Assert.assertEquals(responseGet.jsonPath().getString("id"), userId);
+		//GET- re-checking the deletion by fetching same user
+		Response responseGetAfterDelete = restClient.get("/public/v2/users/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Assert.assertEquals(responseGetAfterDelete.statusCode(), 404);
+		Assert.assertEquals(responseGetAfterDelete.jsonPath().getString("message"), "Resource not found");		
+		
 	}
 
 }

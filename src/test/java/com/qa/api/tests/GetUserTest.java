@@ -26,7 +26,7 @@ public class GetUserTest extends BaseTest {
 	
 	@Test
 	public void getUserTest() {
-		Response response = restClient.get("/public/v2/users/7380158", null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response response = restClient.get("/public/v2/users/7482843", null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 200);
 	}
 

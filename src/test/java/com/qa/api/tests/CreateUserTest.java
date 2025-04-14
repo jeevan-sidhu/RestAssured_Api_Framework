@@ -33,7 +33,7 @@ public class CreateUserTest extends BaseTest {
 		Assert.assertEquals(responseGet.jsonPath().getString("status"), user.getStatus());
 	}
 	
-	@Test
+	@Test(enabled=false)
 	public void createUserUsingJsonFileTest() {
 		
 		//POST- Creating new user

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Rest Api Test Suite" verbose="3">
+
+	<test name="Get User Test">
+		<parameter name="baseUrl" value="https://gorest.co.in" />
+		<classes>
+			<class name="com.qa.api.tests.GetUserTest" />
+		</classes>
+	</test>
+	
+	<test name="Create User Test">
+		<parameter name="baseUrl" value="https://gorest.co.in" />
+		<classes>
+			<class name="com.qa.api.tests.CreateUserTest" />
+		</classes>
+	</test>
+	
+	<test name="Update User Test">
+		<parameter name="baseUrl" value="https://gorest.co.in" />
+		<classes>
+			<class name="com.qa.api.tests.UpdateUserTest" />
+		</classes>
+	</test>
+	
+	<test name="Partial Update User Test">
+		<parameter name="baseUrl" value="https://gorest.co.in" />
+		<classes>
+			<class name="com.qa.api.tests.PatchUserTest" />
+		</classes>
+	</test>
+	
+	<test name="Delete User Test">
+		<parameter name="baseUrl" value="https://gorest.co.in" />
+		<classes>
+			<class name="com.qa.api.tests.DeleteUserTest" />
+		</classes>
+	</test>
+
+	<test name="ReqRes Test">
+		<parameter name="baseUrl" value="https://reqres.in" />
+		<classes>
+			<class name="com.qa.reqres.api.tests.ReqResTest" />
+		</classes>
+	</test>
+
+</suite>

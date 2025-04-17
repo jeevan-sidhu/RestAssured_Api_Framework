@@ -42,12 +42,19 @@
 		<classes>
 			<class name="com.qa.reqres.api.tests.ReqResTest" />
 		</classes>
-	</test> -->
+	</test>
 	
 	<test name="Contacts Api Test">
 		<parameter name="baseUrl" value="https://thinking-tester-contact-list.herokuapp.com" />
 		<classes>
 			<class name="com.qa.contacts.api.tests.ContactsApiTest" />
+		</classes>
+	</test> -->
+	
+	<test name="Products Api Test">
+		<parameter name="baseUrl" value="https://fakestoreapi.com" />
+		<classes>
+			<class name="com.qa.products.api.tests.ProductsApiTest" />
 		</classes>
 	</test>
 

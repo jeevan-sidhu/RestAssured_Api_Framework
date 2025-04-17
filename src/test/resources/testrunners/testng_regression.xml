@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Rest Api Test Suite" verbose="3">
 
-	<test name="Get User Test">
+	<!-- <test name="Get User Test">
 		<parameter name="baseUrl" value="https://gorest.co.in" />
 		<classes>
 			<class name="com.qa.api.tests.GetUserTest" />
@@ -41,6 +41,13 @@
 		<parameter name="baseUrl" value="https://reqres.in" />
 		<classes>
 			<class name="com.qa.reqres.api.tests.ReqResTest" />
+		</classes>
+	</test> -->
+	
+	<test name="Contacts Api Test">
+		<parameter name="baseUrl" value="https://thinking-tester-contact-list.herokuapp.com" />
+		<classes>
+			<class name="com.qa.contacts.api.tests.ContactsApiTest" />
 		</classes>
 	</test>
 

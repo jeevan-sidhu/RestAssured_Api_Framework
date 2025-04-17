@@ -25,15 +25,12 @@ public class RestClient {
 		case BEARER_TOKEN:
 			request.header("Authorization", "Bearer "+ConfigReader.get("bearerToken"));
 			break;
+		case CONTACTS_BEARER_TOKEN:
+			request.header("Authorization", "Bearer "+ConfigReader.get("contactsBearerToken"));
+			break;
 		case BASIC_AUTH:
 			request.header("Authorization", "Basic ");
 			break;
-//		case BEARER_TOKEN:
-//			request.header("Authorization", ConfigReader.get("bearerToken"));
-//			break;
-//		case BEARER_TOKEN:
-//			request.header("Authorization", ConfigReader.get("bearerToken"));
-//			break;
 		case NO_AUTH:
 			System.out.println("Auth is not required");
 			break;
@@ -61,7 +58,7 @@ public class RestClient {
 		return response;
 	}
 	
-	public <T>Response post(String endPoint, T body, Map<String, String> queryParams, Map<String, String> pathParams, AuthType authType, ContentType contentType) {
+	public <T> Response post(String endPoint, T body, Map<String, String> queryParams, Map<String, String> pathParams, AuthType authType, ContentType contentType) {
 		RequestSpecification request = setRequest(authType, contentType);
 		addParams(request, queryParams, pathParams);
 		Response response = request.body(body).post(endPoint).then().extract().response();

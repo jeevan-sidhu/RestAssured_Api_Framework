@@ -9,9 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
-	String name;
+public class Contact {
+	String firstName;
+	String lastName;
+	String birthdate;
 	String email;
-	String gender;
-	String status;
+	String phone;
+	String street1;
+	String street2;
+	String city;
+	String stateProvince;
+	String postalCode;
+	String country;
 }

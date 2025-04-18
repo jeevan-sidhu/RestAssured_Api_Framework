@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(Include.NON_NULL)
 public class User {
-	String id;
-	String name;
-	String email;
-	String gender;
-	String status;
+	private String id;
+	private String name;
+	private String email;
+	private String gender;
+	private String status;
 
 	public User(String name, String email, String gender, String status) {
 		this.name = name;

@@ -1,6 +1,7 @@
 package com.qa.api.client;
 
 import java.io.File;
+import java.util.Base64;
 import java.util.Map;
 
 import com.qa.api.constants.AuthType;
@@ -29,6 +30,12 @@ public class RestClient {
 			request.header("Authorization", "Bearer "+ConfigReader.get("contactsBearerToken"));
 			break;
 		case BASIC_AUTH:
+			request.header("Authorization", "Basic "+generateBasicAuthToken());
+			break;
+		case API_KEY:
+			request.header("api_key", ConfigReader.get("apiKey"));
+			break;
+		case OAUTH2:
 			request.header("Authorization", "Basic ");
 			break;
 		case NO_AUTH:
@@ -39,6 +46,11 @@ public class RestClient {
 			throw new FrameworkException("AUTH TYPE NOT SUPPORTED");
 		}
 		return request;
+	}
+	
+	public String generateBasicAuthToken() {
+		String credentials = ConfigReader.get("basicUsername")+":"+ConfigReader.get("basicPassword");
+		return Base64.getEncoder().encodeToString(credentials.getBytes());
 	}
 	
 	private void addParams(RequestSpecification request, Map<String, String> queryParams, Map<String, String> pathParams) {

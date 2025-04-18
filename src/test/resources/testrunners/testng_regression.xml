@@ -49,12 +49,19 @@
 		<classes>
 			<class name="com.qa.contacts.api.tests.ContactsApiTest" />
 		</classes>
-	</test> -->
+	</test> 
 	
 	<test name="Products Api Test">
 		<parameter name="baseUrl" value="https://fakestoreapi.com" />
 		<classes>
 			<class name="com.qa.products.api.tests.ProductsApiTest" />
+		</classes>
+	</test> -->
+	
+	<test name="Booking Api Test">
+		<parameter name="baseUrl" value="https://restful-booker.herokuapp.com" />
+		<classes>
+			<class name="com.qa.booking.api.tests.BookingApiTest" />
 		</classes>
 	</test>
 

@@ -18,12 +18,12 @@ public class DeleteUserTest extends BaseTest {
 		
 		//POST- Creating new user
 		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
-		Response response = restClient.post("/public/v2/users", user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
 		String userId = response.jsonPath().getString("id");
 		
 		//GET- Fetching the user
-		Response responseGet = restClient.get("/public/v2/users/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response responseGet = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseGet.statusCode(), 200);
 		Assert.assertEquals(responseGet.jsonPath().getString("id"), userId);
 		Assert.assertEquals(responseGet.jsonPath().getString("name"), user.getName());
@@ -32,11 +32,11 @@ public class DeleteUserTest extends BaseTest {
 		Assert.assertEquals(responseGet.jsonPath().getString("status"), user.getStatus());
 		
 		//DELETE- Deleting the user
-		Response responseDelete = restClient.delete("/public/v2/users/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response responseDelete = restClient.delete(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseDelete.statusCode(), 204);
 		
 		//GET- re-checking the deletion by fetching same user
-		Response responseGetAfterDelete = restClient.get("/public/v2/users/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response responseGetAfterDelete = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseGetAfterDelete.statusCode(), 404);
 		Assert.assertEquals(responseGetAfterDelete.jsonPath().getString("message"), "Resource not found");		
 		

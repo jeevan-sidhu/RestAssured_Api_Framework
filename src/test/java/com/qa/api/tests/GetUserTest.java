@@ -22,19 +22,19 @@ public class GetUserTest extends BaseTest {
 		queryParams.put("name", "singh");
 		queryParams.put("status", "active");
 		
-		Response response = restClient.get("/public/v2/users", queryParams, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response response = restClient.get(GOREST_USERS_ALL_ENDPOINT, queryParams, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 200);
 	}
 	
 	@Test(enabled = false)
 	public void getUserTest() {
-		Response response = restClient.get("/public/v2/users/7482843", null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response response = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/7482843", null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 200);
 	}
 	
 	@Test
 	public void getUsersWithDeserializationTest() {
-		Response response = restClient.get("/public/v2/users", null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Response response = restClient.get(GOREST_USERS_ALL_ENDPOINT, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		User user[] = JsonUtils.deserialize(response, User[].class);
 		System.out.println("------------------------------------------");
 		for (User usr : user) {

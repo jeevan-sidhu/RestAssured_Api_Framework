@@ -8,6 +8,16 @@ import com.qa.api.client.RestClient;
 import com.qa.api.manager.ConfigReader;
 
 public class BaseTest {
+	
+	protected static final String GOREST_USERS_ALL_ENDPOINT = "/public/v2/users";
+	protected static final String RESTFULBOOKER_BOOKING_IDS_ENDPOINT = "/booking";
+	protected static final String REQ_RES_ALL_USERS_ENDPOINT = "/api/users";
+	protected static final String FAKESTORE_PRODUCTS_ALL_ENDPOINT = "/products";
+	protected static final String CONTACTS_USER_LOGIN_ENDPOINT = "/users/login";
+	protected static final String CONTACTS_ALL_ENDPOINT = "/contacts";
+	protected static final String CONTACTS_USER_ENDPOINT = "/users/me";
+	protected static final String AMADEUS_FLIGHTS_ENDPOINT = "/v1/shopping/flight-destinations";
+	
 	protected RestClient restClient;
 
 	@Parameters({ "baseUrl" })

@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.qa.api.constants.AppConstants;
+
 public class ConfigReader {
 
 	private static Properties prop = new Properties();
 
 	static {
 		try {
-			InputStream ip = ConfigReader.class.getClassLoader().getResourceAsStream("config/config.properties");
+			InputStream ip = ConfigReader.class.getClassLoader().getResourceAsStream(AppConstants.CONFIG_PROPERTIES_FILE_PATH);
 			if (ip != null) {
 				prop.load(ip);
 			}

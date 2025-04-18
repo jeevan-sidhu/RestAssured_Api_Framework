@@ -17,13 +17,13 @@ public class ProductsApiTest extends BaseTest {
 	
 	@Test
 	public void getAllProductsTest() {
-		Response response = restClient.get("/products", null, null, AuthType.NO_AUTH, ContentType.JSON);
+		Response response = restClient.get(FAKESTORE_PRODUCTS_ALL_ENDPOINT, null, null, AuthType.NO_AUTH, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 200);
 	}
 	
 	@Test
 	public void getProductsTest() {
-		Response response = restClient.get("/products", null, null, AuthType.NO_AUTH, ContentType.JSON);
+		Response response = restClient.get(FAKESTORE_PRODUCTS_ALL_ENDPOINT, null, null, AuthType.NO_AUTH, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 200);
 		
 		Double minPrice = JsonPathValidator.read(response, "min($[*].price)");

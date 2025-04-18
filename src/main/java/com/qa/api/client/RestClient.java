@@ -32,11 +32,11 @@ public class RestClient {
 		case BASIC_AUTH:
 			request.header("Authorization", "Basic "+generateBasicAuthToken());
 			break;
+		case OAUTH2:
+			request.header("Authorization", "Bearer "+generateOAuth2Token());
+			break;
 		case API_KEY:
 			request.header("api_key", ConfigReader.get("apiKey"));
-			break;
-		case OAUTH2:
-			request.header("Authorization", "Basic ");
 			break;
 		case NO_AUTH:
 			System.out.println("Auth is not required");
@@ -51,6 +51,18 @@ public class RestClient {
 	public String generateBasicAuthToken() {
 		String credentials = ConfigReader.get("basicUsername")+":"+ConfigReader.get("basicPassword");
 		return Base64.getEncoder().encodeToString(credentials.getBytes());
+	}
+	
+	public String generateOAuth2Token() {
+		return RestAssured.given()
+			.contentType(ContentType.URLENC)
+			.formParam("grant_type", ConfigReader.get("grantType"))
+			.formParam("client_id", ConfigReader.get("clientId"))
+			.formParam("client_secret", ConfigReader.get("clientSecret"))
+			.post(ConfigReader.get("tokenUrl"))
+			.then()
+			.extract()
+			.path("access_token");
 	}
 	
 	private void addParams(RequestSpecification request, Map<String, String> queryParams, Map<String, String> pathParams) {

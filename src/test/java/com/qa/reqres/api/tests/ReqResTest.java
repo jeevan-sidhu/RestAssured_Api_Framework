@@ -19,7 +19,7 @@ public class ReqResTest extends BaseTest {
 		Map<String, String> queryParams = new HashMap<String, String>();
 		queryParams.put("page", "2");
 		
-		Response response = restClient.get("/api/users", queryParams, null, AuthType.NO_AUTH, ContentType.JSON);
+		Response response = restClient.get(REQ_RES_ALL_USERS_ENDPOINT, queryParams, null, AuthType.NO_AUTH, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 200);
 	}
 

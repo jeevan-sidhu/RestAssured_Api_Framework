@@ -1,11 +1,15 @@
 package com.qa.api.base;
 
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.qa.api.client.RestClient;
 import com.qa.api.manager.ConfigReader;
+
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 
 public class BaseTest {
 	
@@ -19,6 +23,11 @@ public class BaseTest {
 	protected static final String AMADEUS_FLIGHTS_ENDPOINT = "/v1/shopping/flight-destinations";
 	
 	protected RestClient restClient;
+	
+	@BeforeSuite
+	public void reportConfig() {
+		RestAssured.filters(new AllureRestAssured());
+	}
 
 	@Parameters({ "baseUrl" })
 	@BeforeTest

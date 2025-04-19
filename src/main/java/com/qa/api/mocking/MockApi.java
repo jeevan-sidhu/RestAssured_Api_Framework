@@ -99,7 +99,7 @@ public class MockApi {
 				.willReturn(aResponse()
 						.withStatus(204)
 						.withStatusMessage("USER DELETED")
-						.withHeader("server", "NALServer")
+						.withHeader("server", "ApiServer")
 						));
 		
 	}

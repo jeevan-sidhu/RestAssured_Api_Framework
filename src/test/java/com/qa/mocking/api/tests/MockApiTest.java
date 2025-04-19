@@ -50,7 +50,7 @@ public class MockApiTest extends BaseTest {
 		Response response = restClient.delete("/api/users/1", null, null, AuthType.NO_AUTH, ContentType.ANY);
 		Assert.assertEquals(response.statusCode(), 204);
 		Assert.assertEquals(response.statusLine(), "HTTP/1.1 204 USER DELETED");
-		Assert.assertEquals(response.header("server"), "NALServer");
+		Assert.assertEquals(response.header("server"), "ApiServer");
 	}
 
 }

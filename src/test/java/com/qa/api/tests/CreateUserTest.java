@@ -22,12 +22,12 @@ public class CreateUserTest extends BaseTest {
 		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
 		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
-		String userId = response.jsonPath().getString("id");
+		int userId = response.jsonPath().getInt("id");
 		
 		//GET- Fetching the user
 		Response responseGet = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseGet.statusCode(), 200);
-		Assert.assertEquals(responseGet.jsonPath().getString("id"), userId);
+		Assert.assertEquals(responseGet.jsonPath().getInt("id"), userId);
 		Assert.assertEquals(responseGet.jsonPath().getString("name"), user.getName());
 		Assert.assertEquals(responseGet.jsonPath().getString("email"), user.getEmail());
 		Assert.assertEquals(responseGet.jsonPath().getString("gender"), user.getGender());
@@ -41,12 +41,12 @@ public class CreateUserTest extends BaseTest {
 		File user = new File(AppConstants.GOREST_USERS_JSON_FILE_PATH);
 		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
-		String userId = response.jsonPath().getString("id");
+		int userId = response.jsonPath().getInt("id");
 		
 		//GET- Fetching the user
 		Response responseGet = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseGet.statusCode(), 200);
-		Assert.assertEquals(responseGet.jsonPath().getString("id"), userId);
+		Assert.assertEquals(responseGet.jsonPath().getInt("id"), userId);
 	}
 
 }

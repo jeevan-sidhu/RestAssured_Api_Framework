@@ -37,6 +37,13 @@
 		</classes>
 	</test>
 
+	<test name="Users Schema Test">
+		<parameter name="baseUrl" value="https://gorest.co.in" />
+		<classes>
+			<class name="com.qa.api.tests.UsersSchemaTest" />
+		</classes>
+	</test>
+
 	<test name="ReqRes Test">
 		<parameter name="baseUrl" value="https://reqres.in" />
 		<classes>
@@ -56,6 +63,13 @@
 		<parameter name="baseUrl" value="https://fakestoreapi.com" />
 		<classes>
 			<class name="com.qa.products.api.tests.ProductsApiTest" />
+		</classes>
+	</test>
+
+	<test name="Products Api Schema Test">
+		<parameter name="baseUrl" value="https://fakestoreapi.com" />
+		<classes>
+			<class name="com.qa.products.api.tests.ProductsSchemaTest" />
 		</classes>
 	</test>
 

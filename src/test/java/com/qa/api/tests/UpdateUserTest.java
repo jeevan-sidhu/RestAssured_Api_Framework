@@ -20,12 +20,12 @@ public class UpdateUserTest extends BaseTest {
 		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
 		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
-		String userId = response.jsonPath().getString("id");
+		int userId = response.jsonPath().getInt("id");
 		
 		//GET- Fetching the user
 		Response responseGet = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseGet.statusCode(), 200);
-		Assert.assertEquals(responseGet.jsonPath().getString("id"), userId);
+		Assert.assertEquals(responseGet.jsonPath().getInt("id"), userId);
 		
 		user.setStatus("inactive");
 		
@@ -36,7 +36,7 @@ public class UpdateUserTest extends BaseTest {
 		//GET- re-checking the update by fetching same user
 		Response responseGetAfterUpdate = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(responseGetAfterUpdate.statusCode(), 200);
-		Assert.assertEquals(responseGetAfterUpdate.jsonPath().getString("id"), userId);
+		Assert.assertEquals(responseGetAfterUpdate.jsonPath().getInt("id"), userId);
 		Assert.assertEquals(responseGetAfterUpdate.jsonPath().getString("name"), user.getName());
 		Assert.assertEquals(responseGetAfterUpdate.jsonPath().getString("email"), user.getEmail());
 		Assert.assertEquals(responseGetAfterUpdate.jsonPath().getString("gender"), user.getGender());

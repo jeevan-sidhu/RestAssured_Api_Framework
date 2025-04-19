@@ -1,25 +1,28 @@
 package com.qa.api.manager;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import com.qa.api.constants.AppConstants;
 
 public class ConfigReader {
 
-	private static Properties prop = new Properties();
+	private static Properties prop;
 
-	static {
+	public static void loadConfigProperties() {
+		prop = new Properties();
 		try {
-			InputStream ip = ConfigReader.class.getClassLoader().getResourceAsStream(AppConstants.CONFIG_PROPERTIES_FILE_PATH);
-			if (ip != null) {
-				prop.load(ip);
-			}
+			FileInputStream file = new FileInputStream(AppConstants.CONFIG_PROPERTIES_FILE_PATH);
+			prop.load(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static String get(String key) {
 		return prop.getProperty(key);

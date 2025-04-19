@@ -48,8 +48,10 @@ public class ContactsApiTest extends BaseTest {
 	@Test(dataProvider = "getContactsTestData")
 	public void CreateUserTest(String firstName, String lastName, String birthDate, String phone, String street1,
 			String street2, String city, String province, String postalCode, String country) {
+		
 		Contact contact = new Contact(firstName, lastName, birthDate, StringUtils.getRandomEmailId(), phone, street1,
-				street2, city, province, postalCode, country);
+							street2, city, province, postalCode, country);
+		
 		Response response = restClient.post(CONTACTS_ALL_ENDPOINT, contact, null, null, AuthType.CONTACTS_BEARER_TOKEN,
 				ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);

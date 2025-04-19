@@ -27,8 +27,9 @@ public class BaseTest {
 	@BeforeSuite
 	public void reportConfig() {
 		RestAssured.filters(new AllureRestAssured());
+		ConfigReader.loadConfigProperties();
 	}
-
+	
 	@Parameters({ "baseUrl" })
 	@BeforeTest
 	public void setUp(@Optional String baseUrl) {

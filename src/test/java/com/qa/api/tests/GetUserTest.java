@@ -10,6 +10,7 @@ import com.qa.api.base.BaseTest;
 import com.qa.api.constants.AuthType;
 import com.qa.api.pojo.User;
 import com.qa.api.utils.JsonUtils;
+import com.qa.api.utils.StringUtils;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -26,10 +27,16 @@ public class GetUserTest extends BaseTest {
 		Assert.assertEquals(response.statusCode(), 200);
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void getUserTest() {
-		Response response = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/7482843", null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
-		Assert.assertEquals(response.statusCode(), 200);
+		//POST- Creating new user
+		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
+		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Assert.assertEquals(response.statusCode(), 201);
+		int userId = response.jsonPath().getInt("id");
+				
+		Response responseGet = restClient.get(GOREST_USERS_ALL_ENDPOINT+"/"+userId, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
+		Assert.assertEquals(responseGet.statusCode(), 200);
 	}
 	
 	@Test

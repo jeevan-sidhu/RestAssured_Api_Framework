@@ -88,5 +88,13 @@
 			<class name="com.qa.amadeus.api.tests.AmadeusApiTest" />
 		</classes>
 	</test>
+	
+	<test name="Mock Api Test">
+		<parameter name="baseUrl"
+			value="http://localhost:8081" />
+		<classes>
+			<class name="com.qa.mocking.api.tests.MockApiTest" />
+		</classes>
+	</test>
 
 </suite>

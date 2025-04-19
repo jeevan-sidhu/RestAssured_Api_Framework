@@ -1,6 +1,7 @@
 package com.qa.api.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.api.base.BaseTest;
@@ -13,11 +14,20 @@ import io.restassured.response.Response;
 
 public class UpdateUserTest extends BaseTest {
 	
-	@Test
-	public void updateUserTest() {
+	
+	@DataProvider
+	public Object[][] getUserData() {
+		return new Object[][] {
+			{"Albert", "male", "active", "inactive"},
+			{"Robert", "female", "inactive", "active"},
+		};
+	}
+	
+	@Test(dataProvider = "getUserData")
+	public void updateUserTest(String name, String gender, String status, String newStatus) {
 		
 		//POST- Creating new user
-		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
+		User user = new User(name, StringUtils.getRandomEmailId(), gender, status);
 		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
 		int userId = response.jsonPath().getInt("id");
@@ -27,7 +37,7 @@ public class UpdateUserTest extends BaseTest {
 		Assert.assertEquals(responseGet.statusCode(), 200);
 		Assert.assertEquals(responseGet.jsonPath().getInt("id"), userId);
 		
-		user.setStatus("inactive");
+		user.setStatus(newStatus);
 		
 		//PUT- Updating the user
 		Response responsePut = restClient.put(GOREST_USERS_ALL_ENDPOINT+"/"+userId, user ,null, null, AuthType.BEARER_TOKEN, ContentType.JSON);

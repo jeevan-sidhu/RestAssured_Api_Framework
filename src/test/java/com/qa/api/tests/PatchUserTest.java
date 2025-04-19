@@ -1,6 +1,7 @@
 package com.qa.api.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.api.base.BaseTest;
@@ -13,11 +14,19 @@ import io.restassured.response.Response;
 
 public class PatchUserTest extends BaseTest {
 	
-	@Test
-	public void patchUserTest() {
+	@DataProvider
+	public Object[][] getUserData() {
+		return new Object[][] {
+			{"Albert", "male", "active", "Albert Einstein", "inactive"},
+			{"Robert", "female", "inactive", "Robert De Niro ", "active"},
+		};
+	}	
+	
+	@Test(dataProvider = "getUserData")
+	public void patchUserTest(String name, String gender, String status, String newName, String newStatus) {
 		
 		//POST- Creating new user
-		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
+		User user = new User(name, StringUtils.getRandomEmailId(), gender, status);
 		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
 		int userId = response.jsonPath().getInt("id");
@@ -27,8 +36,8 @@ public class PatchUserTest extends BaseTest {
 		Assert.assertEquals(responseGet.statusCode(), 200);
 		Assert.assertEquals(responseGet.jsonPath().getInt("id"), userId);
 		
-		user.setStatus("inactive");
-		user.setGender("female");
+		user.setName(newName);
+		user.setStatus(newStatus);
 		
 		//PATCH- Updating the user
 		Response responsePut = restClient.patch(GOREST_USERS_ALL_ENDPOINT+"/"+userId, user ,null, null, AuthType.BEARER_TOKEN, ContentType.JSON);

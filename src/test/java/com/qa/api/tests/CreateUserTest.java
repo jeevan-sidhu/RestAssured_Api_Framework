@@ -3,6 +3,7 @@ package com.qa.api.tests;
 import java.io.File;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.api.base.BaseTest;
@@ -16,10 +17,19 @@ import io.restassured.response.Response;
 
 public class CreateUserTest extends BaseTest {
 	
-	@Test
-	public void createUserTest() {
+	
+	@DataProvider
+	public Object[][] getUserData() {
+		return new Object[][] {
+			{"Albert", "male", "active"},
+			{"Robert", "female", "inactive"},
+		};
+	}
+	
+	@Test(dataProvider = "getUserData")
+	public void createUserTest(String name, String gender, String status) {
 		//POST- Creating new user
-		User user = new User("testname", StringUtils.getRandomEmailId(), "male", "active");
+		User user = new User(name, StringUtils.getRandomEmailId(), gender, status);
 		Response response = restClient.post(GOREST_USERS_ALL_ENDPOINT, user, null, null, AuthType.BEARER_TOKEN, ContentType.JSON);
 		Assert.assertEquals(response.statusCode(), 201);
 		int userId = response.jsonPath().getInt("id");
